@@ -12,8 +12,19 @@ public class PlateDao {
         this.entityManager = entityManager;
     }
 
-    public void create (Plate plate) {
+    public void create (final Plate plate) {
         this.entityManager.persist(plate);
-        System.out.println("Plate created successfully: " + plate);
     }
+
+   public Plate findById(final Long id) {
+        return this.entityManager.find(Plate.class, id);
+   }
+
+   public void update(final Plate plate) {
+        this.entityManager.merge(plate);
+   }
+
+   public void delete(final Plate plate) {
+        this.entityManager.remove(plate);
+   }
 }
