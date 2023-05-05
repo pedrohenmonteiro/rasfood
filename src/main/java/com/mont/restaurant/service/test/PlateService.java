@@ -1,6 +1,8 @@
 package com.mont.restaurant.service.test;
 
+import com.mont.restaurant.dao.PlateDao;
 import com.mont.restaurant.entity.Plate;
+import com.mont.restaurant.util.JPAUtil;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -15,10 +17,11 @@ public class PlateService {
         risotto.setAvailable(true);
         risotto.setPrice(BigDecimal.valueOf(15.0));
 
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("rasfood");
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
+
+        EntityManager entityManager = JPAUtil.getEntityManagerRasfood();
+        PlateDao plateDao = new PlateDao(entityManager);
         entityManager.getTransaction().begin();
-        entityManager.persist(risotto);
+        plateDao.create(risotto);
         entityManager.getTransaction().commit();
         entityManager.close();
     }
